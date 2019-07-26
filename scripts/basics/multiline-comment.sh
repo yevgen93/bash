@@ -1,4 +1,5 @@
 #!/bin/bash
+# https://linuxhint.com/bash_comments/
 : '
 The following script calculates
 the square value of the number, 5.

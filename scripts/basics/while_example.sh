@@ -1,4 +1,5 @@
 #!/bin/bash
+# https://linuxhint.com/bash-while-loop-examples/
 
 valid=true
 count=1

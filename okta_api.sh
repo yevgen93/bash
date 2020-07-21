@@ -11,7 +11,7 @@ do
     -H "Accept: application/json" \
     -H "Content-Type: application/json" \
     -H "Authorization: SSWS ${api_token}" \
-    "https://nielsen.okta.com/api/v1/users?q=${email}" >> output.txt
+    "https://domain-url.okta.com/api/v1/users?q=${email}" >> output.txt
     echo "" >> output.txt
 done < emails.csv
 
@@ -25,5 +25,5 @@ do
     -H "Accept: application/json" \
     -H "Content-Type: application/json" \
     -H "Authorization: SSWS ${api_token}" \
-    "https://nielsen.okta.com/api/v1/groups/00g1j6yka1aPYWNBj0h8/users/$uid"
+    "https://domain-url.okta.com/api/v1/groups/00g1j6yka1aPYWNBj0h8/users/$uid"
 done < uids.csv

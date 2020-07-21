@@ -1,9 +1,9 @@
 #!/bin/bash
-api_token="XXX"
+api_token="XXXXXXXXXXXXX"
 
-#
-# the first script feeds a csv file with 1 email address per line separated by commas into the Okta API to GET the user's Okta ID
-#
+# assuming that emails_in_OKTA1_coretech.csv contains one email per line delimited by a comma
+
+# feed the emails one by one to the Okta API GET request and obtain each user's data from the OKTA2 side
 
 while IFS=, read -r email
 do
@@ -11,19 +11,22 @@ do
     -H "Accept: application/json" \
     -H "Content-Type: application/json" \
     -H "Authorization: SSWS ${api_token}" \
-    "https://domain-url.okta.com/api/v1/users?q=${email}" >> output.txt
-    echo "" >> output.txt
-done < emails.csv
+    "https://nielsen.okta.com/api/v1/users?q=${email}" >> OKTA2_user_data.txt
+    echo "" >> OKTA2_user_data.txt
+done < emails_in_OKTA1_coretech.csv
 
-# after extracting the UID from output.txt, add them to uids.csv one line at at time separated by commas
-# the second script feeds a csv file with 1 Okta UID per line into the Okta API to PUT each user into a specific group 00g1j6yka1aPYWNBj0h8
-#
+# grab only the UID from each line of OKTA2_user_data.txt
+cut -c 9-28 OKTA2_user_data.txt > OKTA2_uids.txt
 
+# add a comma to the end of each line for the CSV to be delimited
+sed 's/$/,/' OKTA2_uids.txt > final_OKTA2_uids.csv
+
+# feed the UIDs to the Okta API PUT request and add each UID to the group 00g1j6yka1aPYWNBj0h8
 while IFS=, read -r uid
 do
     curl -v -X PUT \
     -H "Accept: application/json" \
     -H "Content-Type: application/json" \
     -H "Authorization: SSWS ${api_token}" \
-    "https://domain-url.okta.com/api/v1/groups/00g1j6yka1aPYWNBj0h8/users/${uid}"
-done < uids.csv
+    "https://nielsen.okta.com/api/v1/groups/00g1j6yka1aPYWNBj0h8/users/$uid"
+done < final_OKTA2_uids.csv

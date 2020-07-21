@@ -19,7 +19,7 @@ done < emails_in_OKTA1_coretech.csv
 cut -c 9-28 OKTA2_user_data.txt > OKTA2_uids.txt
 
 # add a comma to the end of each line for the CSV to be delimited
-sed 's/$/,/' OKTA2_uids.txt > final_OKTA2_uids.csv
+sed 's/$/,/' OKTA2_uids.txt > OKTA2_final_uids.csv
 
 # feed the UIDs to the Okta API PUT request and add each UID to the OKTA2-coretech group 00g1j6yka1aPYWNBj0h8
 while IFS=, read -r uid
@@ -29,4 +29,4 @@ do
     -H "Content-Type: application/json" \
     -H "Authorization: SSWS ${api_token}" \
     "https://okta-domain.okta.com/api/v1/groups/00g1j6yka1aPYWNBj0h8/users/$uid"
-done < final_OKTA2_uids.csv
+done < OKTA2_final_uids.csv

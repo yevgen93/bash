@@ -25,5 +25,5 @@ do
     -H "Accept: application/json" \
     -H "Content-Type: application/json" \
     -H "Authorization: SSWS ${api_token}" \
-    "https://domain-url.okta.com/api/v1/groups/00g1j6yka1aPYWNBj0h8/users/$uid"
+    "https://domain-url.okta.com/api/v1/groups/00g1j6yka1aPYWNBj0h8/users/${uid}"
 done < uids.csv

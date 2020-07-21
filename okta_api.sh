@@ -1,5 +1,6 @@
 #!/bin/bash
-api_token="XXXXXXXXXXXXX"
+OKTA1_api_token="XXXXXXXXXXXXXXXXXXX"
+OKTA2_api_token="XXXXXXXXXXXXXXXXXXX"
 
 # assuming that emails_in_OKTA1_coretech.csv contains one email per line delimited by a comma
 
@@ -10,7 +11,7 @@ do
     curl -v -X GET \
     -H "Accept: application/json" \
     -H "Content-Type: application/json" \
-    -H "Authorization: SSWS ${api_token}" \
+    -H "Authorization: SSWS ${OKTA1_api_token}" \
     "https://nielsen.okta.com/api/v1/users?q=${email}" >> OKTA2_user_data.txt
     echo "" >> OKTA2_user_data.txt
 done < emails_in_OKTA1_coretech.csv
@@ -27,6 +28,6 @@ do
     curl -v -X PUT \
     -H "Accept: application/json" \
     -H "Content-Type: application/json" \
-    -H "Authorization: SSWS ${api_token}" \
+    -H "Authorization: SSWS ${OKTA2_api_token}" \
     "https://nielsen.okta.com/api/v1/groups/00g1j6yka1aPYWNBj0h8/users/$uid"
 done < final_OKTA2_uids.csv

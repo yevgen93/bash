@@ -13,7 +13,7 @@ curl -v -X GET \
 -H "Accept: application/json" \
 -H "Content-Type: application/json" \
 -H "Authorization: SSWS ${OKTA1_api_token}" \
-"https://nielsennmc.okta.com/api/v1/groups/${OKTA1_GROUP}/users" >> OKTA1_users_in_group.json
+"https://OKTA1-TENANT.okta.com/api/v1/groups/${OKTA1_GROUP}/users" >> OKTA1_users_in_group.json
 
 # Parse the JSON output and return a csv file with each user's email per line delimited by a comma
 cat OKTA1_users_in_group.json | jq '.[].profile.email' | sed 's/^"//' | sed 's/"$/,/' > OTKA1_emails_in_group.csv
@@ -25,7 +25,7 @@ do
     -H "Accept: application/json" \
     -H "Content-Type: application/json" \
     -H "Authorization: SSWS ${OKTA2_api_token}" \
-    "https://nielsen.okta.com/api/v1/users?q=${email}" >> OKTA2_user_data.txt
+    "https://OKTA2-TENANT.okta.com/api/v1/users?q=${email}" >> OKTA2_user_data.txt
     echo "" >> OKTA2_user_data.txt
 done < OTKA1_emails_in_group.csv
 
@@ -40,7 +40,7 @@ do
     -H "Accept: application/json" \
     -H "Content-Type: application/json" \
     -H "Authorization: SSWS ${OKTA2_api_token}" \
-    "https://nielsen.okta.com/api/v1/groups/${OKTA2_GROUP}/users/$uid"
+    "https://OKTA2-TENANT.okta.com/api/v1/groups/${OKTA2_GROUP}/users/$uid"
 done < OKTA2_uids.csv
 
 # Cleanup

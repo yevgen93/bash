@@ -1,0 +1,4 @@
+https://stackoverflow.com/questions/42946863/passing-parameter-to-jenkins-job-through-curl-post-not-working
+https://serverfault.com/questions/888176/how-to-trigger-jenkins-job-via-curl-command-remotely 
+
+curl -X POST -u JENKINS_USER:JENKINS_USER_API_TOKEN https://www.jenkins.com/job/JOB_NAME/buildWithParameters?token=JOB_TOKEN -F param1=value1 -F param2=value2
